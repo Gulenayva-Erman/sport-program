@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#EDEFF2">
+<title>Interval Kardiyo</title>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script src="app.js"></script>
+<div class="wrap">
+  <div class="top"><a class="back" href="index.html">‹ Ana sayfa</a><div class="title">Interval — Kürek</div><span class="pill accent">30 dk</span></div>
+  <section class="hero">
+    <div class="eyebrow" id="ctx">Perşembe</div>
+    <h1>Interval — Kürek Makinesi</h1>
+    <p class="muted">"Interval" = kısa süre hızlı, kısa süre yavaş, tekrar. Kürek makinesi düz taban için ideal: ayağa hiç darbe yok, tüm vücut çalışıyor. Sayacı başlat, telefon her geçişte bipler.</p>
+  </section>
+
+  <div class="tabs" id="tabs" role="tablist">
+    <button role="tab" data-p="1">Faz 1<span class="sub">8 × 1/1 dk</span></button>
+    <button role="tab" data-p="2">Faz 2<span class="sub">10 × 1/1 dk</span></button>
+    <button role="tab" data-p="3">Faz 3<span class="sub">4 × 3/2 dk</span></button>
+  </div>
+
+  <div class="bigtimer" id="tm">
+    <div class="stage" id="stage">Hazır</div>
+    <div class="clock num" id="clock">30:00</div>
+    <div class="sub" id="sub"></div>
+    <div class="segs" id="segs"></div>
+    <div class="ctl"><button class="btn primary" id="go">Başlat</button><button class="btn" id="reset">Sıfırla</button></div>
+  </div>
+
+  <h2>Hangi alet?</h2>
+  <div class="term"><img src="img/kurek.jpg" alt="Kürek makinesi" loading="lazy"><div class="b"><h3>Kürek makinesi (Nova Sport, salonun girişinde)</h3>
+    <p>Kayan oturak, ayak bağlamalı pedallar, çekilen tutamak. Ekrandaki "damper" (hava direnci) kolunu <b>4–5</b>'e ayarla; daha yüksek, sırtı yorar.</p></div></div>
+
+  <h2>Kürek tekniği — 4 adım</h2>
+  <div class="card">
+    <ol class="steps">
+      <li><b>Yakala:</b> Dizler bükük, kollar düz, gövde hafif öne, sırt düz.</li>
+      <li><b>Bacak:</b> Önce sadece bacaklarla pedalları it. Kollar hâlâ düz.</li>
+      <li><b>Gövde + kol:</b> Bacaklar düzleşince gövdeyi hafif geriye yatır, en son kollarla tutamağı göğüs altına çek.</li>
+      <li><b>Dönüş:</b> Tam tersi sırayla: önce kollar uzar, sonra gövde öne, en son dizler bükülür. Yavaş dön.</li>
+    </ol>
+    <p class="note" style="margin-top:10px">Sıra: <b>bacak → gövde → kol</b>, dönüşte <b>kol → gövde → bacak</b>. Gücün %60'ı bacaktan gelir. Kollarla çekiyorsan yanlış yapıyorsun.</p>
+  </div>
+
+  <h2>Hızlı ve yavaş ne demek?</h2>
+  <div class="card">
+    <dl class="dl">
+      <dt>Hızlı</dt><dd>Dakikanın son 15 saniyesinde konuşamayacak kadar. Ekranda 500m temposu ("/500m") yaklaşık <span class="num">2:05–2:20</span>.</dd>
+      <dt>Yavaş</dt><dd>Kürek çekmeye devam et ama rahat; nefesini topla. <span class="num">2:45–3:00</span> /500m.</dd>
+      <dt>Isınma / soğuma</dt><dd>Çok rahat, tekniğe odaklan.</dd>
+    </dl>
+  </div>
+
+  <p class="note warn" style="margin-top:12px">Baş dönmesi veya göğüs sıkışması olursa dur. İlk 2 hafta "hızlı" turları %80 güçle yap, tam gaz değil.</p>
+
+  <div class="done-bar"><button class="btn primary block" id="done">Kardiyoyu tamamladım</button></div>
+  <footer><a href="sozluk.html">Sözlük</a> · <a href="index.html">Ana sayfa</a></footer>
+</div>
+<script>
+(function(){
+  var cfg={1:{n:8,f:60,e:60},2:{n:10,f:60,e:60},3:{n:4,f:180,e:120}};
+  var stages=[], total=0, left=0, run=null, last=-1;
+  var clock=document.getElementById('clock'), stage=document.getElementById('stage'), sub=document.getElementById('sub'), segs=document.getElementById('segs'), go=document.getElementById('go');
+  function build(p){ var c=cfg[p]; stages=[{n:'Isınma',s:300,c:'easy'}]; for(var i=1;i<=c.n;i++){ stages.push({n:'HIZLI '+i+'/'+c.n,s:c.f,c:'fast'}); stages.push({n:'yavaş '+i+'/'+c.n,s:c.e,c:'easy'}); } stages.push({n:'Soğuma',s:300,c:'easy'});
+    total=stages.reduce(function(a,b){return a+b.s},0); left=total; last=-1; segs.innerHTML=stages.map(function(s){return '<i class="'+s.c+'" style="flex:'+s.s+'"></i>'}).join(''); paint(); }
+  function cur(){ var t=total-left, acc=0; for(var i=0;i<stages.length;i++){ acc+=stages[i].s; if(t<acc) return {i:i,left:acc-t}; } return {i:stages.length-1,left:0}; }
+  function paint(){ var c=cur(); clock.textContent=SP.mmss(c.left); stage.textContent=stages[c.i].n; stage.className='stage '+stages[c.i].c; sub.textContent='Toplam kalan: '+SP.mmss(left);
+    segs.querySelectorAll('i').forEach(function(el,i){ el.classList.toggle('cur',i===c.i); el.classList.toggle('done',i<c.i); });
+    if(c.i!==last && last!==-1){ SP.beep(stages[c.i].c==='fast'?3:1); } last=c.i; if(left<=0){ stop(); stage.textContent='Bitti'; SP.beep(3);} }
+  function tick(){ left=Math.max(0,left-1); paint(); }
+  function stop(){ clearInterval(run); run=null; go.textContent='Başlat'; }
+  go.addEventListener('click', function(){ SP.unlockAudio(); if(run){ stop(); } else { run=setInterval(tick,1000); go.textContent='Duraklat'; } });
+  document.getElementById('reset').addEventListener('click', function(){ stop(); left=total; last=-1; paint(); });
+  var st=SP.state(); var p = st.phase===0?1:Math.min(st.phase,3);
+  var tabs=document.getElementById('tabs'); tabs.querySelectorAll('button').forEach(function(b){ b.addEventListener('click',function(){ stop(); tabs.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-selected',x===b)}); build(+b.dataset.p); }); if(+b.dataset.p===p) b.setAttribute('aria-selected','true'); });
+  build(p);
+  document.getElementById('ctx').textContent=(st.phase===0?'Program 21 Eylül\'de başlıyor':'Hafta '+st.week)+' · Perşembe';
+  var done=document.getElementById('done'); if(SP.isDone(st.date)==='I'){done.textContent='Bugün tamamlandı ✓';done.classList.add('ghost');}
+  done.addEventListener('click',function(){SP.markDone('I');done.textContent='Bugün tamamlandı ✓';done.classList.add('ghost');});
+})();
+</script>
+</body>
+</html>

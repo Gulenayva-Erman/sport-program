@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#EDEFF2">
+<title>Gün B</title>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script src="app.js"></script>
+<script src="exercises.js"></script>
+<div class="wrap">
+  <div class="top"><a class="back" href="index.html">‹ Ana sayfa</a><div class="title">Gün B — Ağırlık</div><span class="pill accent">30 dk</span></div>
+  <section class="hero">
+    <div class="eyebrow" id="ctx">Hafta —</div>
+    <h1>Gün B</h1>
+    <p class="muted">Sırt kaldırma (kalça menteşesi) · Kanat · Ön bacak · Omuz · Baldır ve ayak (düz taban için). Yine süperset mantığı.</p>
+    <div class="tabs" id="tabs" role="tablist">
+      <button role="tab" data-p="1">Faz 1<span class="sub">Hafta 1–4</span></button>
+      <button role="tab" data-p="2">Faz 2<span class="sub">Hafta 5–8</span></button>
+      <button role="tab" data-p="3">Faz 3<span class="sub">Hafta 9–12</span></button>
+    </div>
+    <p class="note" id="phase-note" style="margin-top:10px"></p>
+  </section>
+
+  <h2>Akış</h2>
+  <div class="timeline">
+    <div><b>Isınma</b> <span class="t">0–4 dk</span><br><span class="small">3 dk kürek veya eliptik. Sonra 10 kol çevirme, 10 kalça çevirme, 10 "iyi sabahlar" (eller ensede, gövdeyi kalçadan öne eğ).</span></div>
+    <div class="hot"><b>Süperset 1</b> <span class="t">4–13 dk</span><br><span class="small">A1 → A2 → 60–75 sn dinlen.</span></div>
+    <div class="hot"><b>Süperset 2</b> <span class="t">13–22 dk</span><br><span class="small">B1 → B2 → dinlen.</span></div>
+    <div class="hot"><b>Bitiriş</b> <span class="t">22–28 dk</span><br><span class="small">C1 baldır → C2 ayak ucu, arka arkaya, 30 sn dinlen.</span></div>
+    <div><b>Soğuma</b> <span class="t">28–30 dk</span><br><span class="small">Arka bacak ve baldır esnetme, 30'ar sn.</span></div>
+  </div>
+  <p class="note warn" style="margin-top:12px"><b>Bel uyarısı:</b> Sırt kaldırma ve RDL'de keskin, bacağa yayılan bir ağrı hissedersen o gün bu hareketi bırak. Kas yorgunluğu (yanma) normal, keskin ağrı değil.</p>
+
+  <div id="plan"></div>
+
+  <div class="done-bar"><button class="btn primary block" id="done">Antrenmanı tamamladım</button></div>
+  <p class="small muted" style="margin-top:10px">Set tikleri bugüne ait; yarın sıfırlanır. "kg" kutusu kalıcıdır. Kayıtlar sadece bu telefonda saklanır.</p>
+  <footer><a href="sozluk.html">Alet & terim sözlüğü</a> · <a href="index.html">Ana sayfa</a></footer>
+</div>
+<script>renderDay('B'); SP.restBar(); document.addEventListener('touchstart', SP.unlockAudio, {once:true}); document.addEventListener('click', SP.unlockAudio, {once:true});</script>
+</body>
+</html>

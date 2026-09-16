@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#EDEFF2">
+<title>Zone 2 Kardiyo</title>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script src="app.js"></script>
+<div class="wrap">
+  <div class="top"><a class="back" href="index.html">‹ Ana sayfa</a><div class="title">Zone 2 Kardiyo</div><span class="pill accent">30 dk</span></div>
+  <section class="hero">
+    <div class="eyebrow" id="ctx">Salı</div>
+    <h1>Zone 2 — Rahat Tempo</h1>
+    <p class="muted">"Zone 2" = kalbin orta-hafif çalıştığı, <b>konuşabildiğin ama şarkı söyleyemediğin</b> tempo. Karın çevresindeki (viseral) yağı en verimli yakan kardiyo türü budur — yorucu olan değil.</p>
+  </section>
+
+  <div class="bigtimer" id="tm">
+    <div class="stage" id="stage">Hazır</div>
+    <div class="clock num" id="clock">30:00</div>
+    <div class="sub" id="sub">3 dk ısınma · 24 dk sabit tempo · 3 dk soğuma</div>
+    <div class="segs" id="segs"></div>
+    <div class="ctl"><button class="btn primary" id="go">Başlat</button><button class="btn" id="reset">Sıfırla</button></div>
+  </div>
+
+  <h2>Hangi alet?</h2>
+  <div class="stack">
+    <div class="term"><img src="img/kosu-bandi.jpg" alt="Koşu bantları" loading="lazy"><div class="b"><h3>Koşu bandı — eğimli yürüyüş (ilk tercih)</h3>
+      <p>Koşma yok (düz taban için darbe yükü fazla). Bunun yerine <b>eğim</b> ver: yürüyüş olduğu için eklem yükü düşük, eğim sayesinde nabız hedefe çıkar.</p>
+      <dl class="dl"><dt>Hız</dt><dd>5.5 – 6.5 km/s</dd><dt>Eğim</dt><dd>%6 ile başla, nabız yetmiyorsa %8–10'a çık</dd><dt>Eller</dt><dd>Tutamaklara tutunma; tutunursan eğimin anlamı kalmaz</dd></dl></div></div>
+    <div class="term"><img src="img/eliptik.jpg" alt="Eliptik" loading="lazy"><div class="b"><h3>Eliptik (alternatif)</h3>
+      <p>Ayak pedallardan hiç kalkmaz; sıfır darbe. Ayak tabanında ağrı olan günlerde bunu seç. Direnç 6–8 civarı, tempo rahat.</p>
+      <p class="small muted">Sıkılırsan böl: 12 dk bant + 12 dk eliptik.</p></div></div>
+  </div>
+
+  <h2>Doğru tempoda mısın?</h2>
+  <div class="card">
+    <dl class="dl">
+      <dt>Konuşma testi</dt><dd>Tam cümle kurabilirsin ama nefes nefese. Rahat sohbet edebiliyorsan biraz hızlan; iki kelimeden fazla söyleyemiyorsan yavaşla.</dd>
+      <dt>Nabız</dt><dd><span class="num">110–130</span> arası. Saat varsa bak; yoksa konuşma testi yeterli.</dd>
+      <dt>Ter</dt><dd>10. dakikada hafif terlemeye başlarsın. Sırılsıklam olmak hedef değil.</dd>
+    </dl>
+  </div>
+
+  <h2>Akış</h2>
+  <div class="timeline">
+    <div><b>Isınma</b> <span class="t">0–3 dk</span><br><span class="small">Eğimsiz, 4.5 km/s.</span></div>
+    <div class="hot"><b>Sabit tempo</b> <span class="t">3–27 dk</span><br><span class="small">Hız ve eğimi ayarla, sonra dokunma. Aynı tempoda kal.</span></div>
+    <div><b>Soğuma</b> <span class="t">27–30 dk</span><br><span class="small">Eğimi sıfırla, 4 km/s.</span></div>
+  </div>
+  <p class="note" style="margin-top:12px">Sonrasında 2 dk baldır esnetme (duvara dayanıp topuk yerde, 30 sn × 2 taraf). Düz tabanda baldır kısalması yaygın.</p>
+
+  <div class="done-bar"><button class="btn primary block" id="done">Kardiyoyu tamamladım</button></div>
+  <footer><a href="index.html">Ana sayfa</a></footer>
+</div>
+<script>
+(function(){
+  var stages=[{n:'Isınma',s:180,c:'easy'},{n:'Sabit tempo',s:1440,c:'fast'},{n:'Soğuma',s:180,c:'easy'}];
+  var total=stages.reduce(function(a,b){return a+b.s},0), left=total, run=null, last=0;
+  var clock=document.getElementById('clock'), stage=document.getElementById('stage'), sub=document.getElementById('sub'), segs=document.getElementById('segs');
+  segs.innerHTML=stages.map(function(s){return '<i class="'+s.c+'" style="flex:'+s.s+'"></i>'}).join('');
+  function cur(){ var t=total-left, acc=0; for(var i=0;i<stages.length;i++){ acc+=stages[i].s; if(t<acc) return {i:i,left:acc-t}; } return {i:stages.length-1,left:0}; }
+  function paint(){ var c=cur(); clock.textContent=SP.mmss(left); stage.textContent=stages[c.i].n; stage.className='stage '+stages[c.i].c; sub.textContent='Bu bölümde kalan: '+SP.mmss(c.left);
+    segs.querySelectorAll('i').forEach(function(el,i){ el.classList.toggle('cur',i===c.i); el.classList.toggle('done',i<c.i); });
+    if(c.i!==last){ SP.beep(2); last=c.i; } if(left<=0){ stop(); stage.textContent='Bitti'; SP.beep(3);} }
+  function tick(){ left=Math.max(0,left-1); paint(); }
+  function stop(){ clearInterval(run); run=null; go.textContent='Başlat'; }
+  var go=document.getElementById('go');
+  go.addEventListener('click', function(){ SP.unlockAudio(); if(run){ stop(); } else { run=setInterval(tick,1000); go.textContent='Duraklat'; } });
+  document.getElementById('reset').addEventListener('click', function(){ stop(); left=total; last=0; paint(); });
+  paint();
+  var st=SP.state(); var ctx=document.getElementById('ctx'); ctx.textContent = (st.phase===0?'Program 21 Eylül\'de başlıyor':'Hafta '+st.week)+' · Salı';
+  var done=document.getElementById('done'); if(SP.isDone(st.date)==='Z'){done.textContent='Bugün tamamlandı ✓';done.classList.add('ghost');}
+  done.addEventListener('click',function(){SP.markDone('Z');done.textContent='Bugün tamamlandı ✓';done.classList.add('ghost');});
+})();
+</script>
+</body>
+</html>

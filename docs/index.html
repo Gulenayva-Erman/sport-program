@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#EDEFF2">
+<title>Antrenman Programı</title>
+</head>
+<body>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script src="app.js"></script>
+<div class="wrap">
+  <section class="hero">
+    <div class="eyebrow">12 haftalık vücut kompozisyonu programı</div>
+    <h1>Antrenman Programı</h1>
+    <p class="muted" style="margin-top:6px">Hedef: yağ ve karın içi yağ ↓, kas kütlesi korunsun. Hafta içi 5 gün, 30'ar dakika.</p>
+
+    <div class="today" id="today">
+      <div class="eyebrow" id="t-eyebrow">Bugün</div>
+      <h2 id="t-title">—</h2>
+      <p id="t-sub">—</p>
+      <a class="btn" id="t-btn" href="#">Aç</a>
+    </div>
+
+    <div class="week" id="week"></div>
+  </section>
+
+  <div class="prog">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px">
+      <b class="disp" style="font-size:1.3rem" id="p-title">Hafta — / 12</b>
+      <span class="pill accent" id="p-phase">—</span>
+    </div>
+    <div class="bar"><i class="p1" style="width:33.3%"></i><i class="p2" style="width:33.3%"></i><i class="p3" style="width:33.4%"></i></div>
+    <div class="phases">
+      <div id="ph1"><b>Faz 1</b>Hafta 1–4<br>Öğrenme, 2 set, makineler</div>
+      <div id="ph2"><b>Faz 2</b>Hafta 5–8<br>3 set, goblet squat gelir</div>
+      <div id="ph3"><b>Faz 3</b>Hafta 9–12<br>Dambıl, daha ağır</div>
+    </div>
+    <p class="small muted" style="margin:10px 0 0" id="p-next"></p>
+  </div>
+
+  <h2>Günler</h2>
+  <div class="list">
+    <a class="row" href="gun-a.html"><div class="k a">A</div><div class="t"><b>Gün A — Ağırlık</b><span>Pazartesi (+ dönüşümlü Cuma) · Çömelme, göğüs, arka bacak, sırt, karın</span></div><span class="arr">›</span></a>
+    <a class="row" href="zone2.html"><div class="k">Z2</div><div class="t"><b>Zone 2 Kardiyo</b><span>Salı · Eğimli yürüyüş veya eliptik, rahat tempo</span></div><span class="arr">›</span></a>
+    <a class="row" href="gun-b.html"><div class="k a">B</div><div class="t"><b>Gün B — Ağırlık</b><span>Çarşamba (+ dönüşümlü Cuma) · Sırt kaldırma, kanat, ön bacak, omuz, baldır</span></div><span class="arr">›</span></a>
+    <a class="row" href="interval.html"><div class="k">INT</div><div class="t"><b>Interval Kardiyo</b><span>Perşembe · Kürek makinesi, hızlı/yavaş turlar, sayaçlı</span></div><span class="arr">›</span></a>
+    <a class="row" href="sozluk.html"><div class="k">?</div><div class="t"><b>Alet & Terim Sözlüğü</b><span>Hack squat nedir, hangi makine, fotoğrafıyla</span></div><span class="arr">›</span></a>
+    <a class="row" href="beslenme.html"><div class="k">🍽</div><div class="t"><b>Beslenme — 6 Kural</b><span>Kalori saymadan, uygulanabilir</span></div><span class="arr">›</span></a>
+  </div>
+
+  <h2>Cuma hangi gün?</h2>
+  <div class="card">
+    <p>Tek haftalarda (1, 3, 5…) Cuma = <b>Gün A</b>, çift haftalarda (2, 4, 6…) Cuma = <b>Gün B</b>. Yukarıdaki "Bugün" kartı bunu senin yerine hesaplıyor; düşünmene gerek yok.</p>
+    <div class="tbl"><table><tr><th>Hafta</th><th>Pzt</th><th>Sal</th><th>Çar</th><th>Per</th><th>Cum</th></tr>
+      <tr><td>Tek</td><td>A</td><td>Zone 2</td><td>B</td><td>Interval</td><td><b>A</b></td></tr>
+      <tr><td>Çift</td><td>A</td><td>Zone 2</td><td>B</td><td>Interval</td><td><b>B</b></td></tr></table></div>
+  </div>
+
+  <h2>Kurallar</h2>
+  <details open><summary>Ağırlığı ne zaman artırırım?</summary><div class="body">
+    <ol class="steps">
+      <li>Her hareketin bir tekrar aralığı var, örn. 3 × 10–12.</li>
+      <li>Bütün setlerde <b>üst sınıra</b> (12) ulaştın ve form bozulmadı mı? Bir sonraki antrenmanda ağırlığı en küçük adımla artır: makinede 1 pin, dambılda 2 kg, plakada 2.5–5 kg.</li>
+      <li>Artırınca tekrar alt sınıra (10) düşersin. Normal. Tekrar 12'ye tırman.</li>
+      <li>Form bozuluyorsa ağırlık fazla — geri al. Kimse bakmıyor.</li>
+      <li>Bir hareket 3 antrenman üst üste ilerlemiyorsa: o hafta ağırlıkları %20 düşür (deload), sonraki hafta devam.</li>
+    </ol></div></details>
+  <details><summary>Zorluk ölçüsü</summary><div class="body"><p>Her setin sonunda kendine sor: "Kaç tekrar daha yapabilirdim?" Cevap <b>2–3</b> olmalı. 0 ise ağırlık fazla, 5+ ise az. Başarısızlığa (kaldıramayana kadar) gitme; başlangıçta bu sakatlar, kas yapmaz.</p></div></details>
+  <details><summary>Kırmızı çizgiler</summary><div class="body">
+    <ol class="steps">
+      <li><b>Bel:</b> keskin, bacağa yayılan ağrı → o gün sırt kaldırma / RDL yok. Kas yorgunluğu (yanma) normal.</li>
+      <li><b>Diz önü ağrısı</b> çömelirken → hack squat'ta daha az derine in, ayakları platformda biraz yukarı al.</li>
+      <li><b>Ayak tabanı / topuk ağrısı</b> (düz taban) → Salı kardiyosunu tamamen eliptik veya küreğe al; baldır setlerini yarıya indir.</li>
+      <li><b>Baş dönmesi</b> → nefes tutuyorsun. Zorlanırken ver, geri gelirken al. Asla tutma.</li>
+      <li><b>Süre yetmiyorsa</b> → C hareketini atla, süpersetler kalsın. 30 dakikayı 45 yapma; düzen, süreden önemli.</li>
+      <li><b>Bir gün kaçırdıysan</b> → telafi yok, sıradaki güne devam. Haftada 4 yaptıysan hafta başarılı.</li>
+    </ol></div></details>
+  <details><summary>Neden bu program?</summary><div class="body">
+    <p>Sorun kilo değil: yağ oranı ve karın içi (viseral) yağ yüksek, kas kütlesi yerinde. Sadece diyet + koşu yapsan kası da kaybedersin; 30'lu yaşların sonunda geri almak zor. Bu yüzden: ağırlık antrenmanı kası korur, Zone 2 karın içi yağı eritir, interval kalp kapasitesini artırır, beslenme açığı sağlar.</p>
+    <p>Başarı ölçütü tartı değil: 12 hafta sonra kilo 4–5 kg düşüp kas kütlesi aynı kaldıysa program çalıştı. Kilo 8 kg düşüp kas da 3 kg gittiyse çalışmadı.</p></div></details>
+
+  <h2>Ölçümler</h2>
+  <div class="card">
+    <p class="small muted">Pazartesi sabahı, aç, tuvaletten sonra. Bel: göbek deliği hizasından, nefes vermiş halde. Kayıtlar bu telefonda saklanır.</p>
+    <div class="form">
+      <div><label for="m-w">Kilo (kg)</label><input type="number" inputmode="decimal" step="0.1" id="m-w" placeholder="—"></div>
+      <div><label for="m-b">Bel (cm)</label><input type="number" inputmode="decimal" step="0.5" id="m-b" placeholder="—"></div>
+      <button class="btn primary" id="m-add">Kaydet</button>
+    </div>
+    <div class="tbl" style="margin-top:12px"><table id="m-tbl"><thead><tr><th>Tarih</th><th class="num">Kilo</th><th class="num">Bel</th><th class="num">Fark</th></tr></thead><tbody></tbody></table></div>
+  </div>
+
+  <footer>Başlangıç: 21 Eylül 2026 · Kayıtlar yalnızca bu cihazda tutulur, hiçbir yere gönderilmez.</footer>
+</div>
+<script>
+(function(){
+  var st = SP.state(), M = SP.META;
+  var ttl=document.getElementById('t-title'), sub=document.getElementById('t-sub'), btn=document.getElementById('t-btn'), eb=document.getElementById('t-eyebrow');
+  eb.textContent = 'Bugün · '+SP.fmtDate(st.date);
+  if(st.phase===0){
+    var kalan = -st.days;
+    ttl.textContent = 'Program '+kalan+' gün sonra başlıyor';
+    sub.textContent = 'Bu hafta ödev: sözlüğü oku, salonda programdaki makineleri bul, her birinde ayarları (koltuk, pin) dene. Pazartesi 21 Eylül Gün A ile başlıyoruz.';
+    btn.textContent='Sözlüğe git'; btn.href='sozluk.html';
+  } else if(st.session.key==='R'){
+    ttl.textContent='Dinlenme'; sub.textContent='Bugün salon yok. 8.000+ adım yürü, su iç, uyu. Yarın: '+(st.dow===6?'Pazar dinlenme':'Pazartesi Gün A')+'.';
+    btn.textContent='Haftaya bak'; btn.href='#week';
+  } else {
+    var d = SP.isDone(st.date)===st.session.key;
+    ttl.textContent = st.session.title; sub.textContent = st.session.sub + (d?' · Tamamlandı ✓':'');
+    btn.textContent = d?'Tekrar aç':'Antrenmanı aç'; btn.href = st.session.href;
+  }
+  // hafta şeridi
+  var wk=document.getElementById('week'); var days=SP.weekDates(st.date); var wnum = st.phase===0?1:st.week;
+  wk.innerHTML = days.map(function(d){ var s=SP.sessionFor(SP.state(d).week||1, d.getDay()); var isNow=SP.ymd(d)===SP.ymd(st.date); var done=SP.isDone(d)===s.key;
+    var lbl={A:'Gün A',B:'Gün B',Z:'Zone 2',I:'Interval'}[s.key];
+    return '<a href="'+s.href+'" class="'+(isNow?'now ':'')+(done?'done':'')+'"><div class="d">'+SP.trDay(d)+' '+d.getDate()+'</div><div class="s">'+lbl+'</div></a>'; }).join('');
+  // ilerleme
+  var pw = st.phase===0?0:Math.min(st.week,12);
+  document.getElementById('p-title').textContent = st.phase===0 ? 'Hazırlık haftası' : 'Hafta '+st.week+' / 12';
+  document.getElementById('p-phase').textContent = SP.phaseName(st.phase);
+  var ph = st.phase===0?1:Math.min(st.phase,3); document.getElementById('ph'+ph).classList.add('cur');
+  var bars=document.querySelectorAll('.bar i'); var pct = pw/12*100; var acc=0;
+  bars.forEach(function(b,i){ var w=[33.3,33.3,33.4][i]; var fill=Math.max(0,Math.min(w,pct-acc)); b.style.width=fill+'%'; b.style.opacity=fill>0?'':'.15'; acc+=w; });
+  var nxt=document.getElementById('p-next');
+  nxt.textContent = st.week<3 ? 'Sırada: 3. haftada setleri 2\'den 3\'e çıkar.' : st.week<5 ? 'Sırada: 5. haftada Leg Extension → Goblet Squat, Plank → Dead Bug, sırt kaldırmaya plaka.' : st.week<9 ? 'Sırada: 9. haftada dambıl RDL, dambıl bench ve iso-lateral low row.' : st.week<=12 ? 'Sırada: 12. hafta sonunda yeni ölçüm ve Faz 4 planı.' : '12 hafta doldu — yeni ölçüm al, Faz 4\'ü planlayalım.';
+  // ölçümler
+  var rows = SP.get('measures',[]); var tb=document.querySelector('#m-tbl tbody');
+  function paint(){ tb.innerHTML = rows.slice().reverse().map(function(r,i,arr){ var prev = arr[i+1]; var diff = prev&&r.w&&prev.w ? (r.w-prev.w) : null;
+    return '<tr><td>'+r.d+'</td><td class="num">'+(r.w||'—')+'</td><td class="num">'+(r.b||'—')+'</td><td class="num">'+(diff===null?'—':(diff>0?'+':'')+diff.toFixed(1))+'</td></tr>'; }).join('') || '<tr><td colspan="4" class="muted">Henüz kayıt yok. İlk kaydı bu hafta gir.</td></tr>'; }
+  document.getElementById('m-add').addEventListener('click', function(){ var w=parseFloat(document.getElementById('m-w').value), b=parseFloat(document.getElementById('m-b').value); if(!w&&!b) return;
+    rows.push({d:new Date().toLocaleDateString('tr-TR',{day:'2-digit',month:'2-digit'}), w:w||null, b:b||null}); SP.set('measures',rows); paint(); document.getElementById('m-w').value=''; document.getElementById('m-b').value=''; });
+  paint();
+})();
+</script>
+</body>
+</html>

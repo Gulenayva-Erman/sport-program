@@ -1,0 +1,7 @@
+# Orijinal fotoğraflar ve kişisel ölçüm ekran görüntüsü public repo'ya girmez
+Aletler/
+erman-vucut.JPG
+.DS_Store
+
+# Kişisel ölçümler içerir, repoya girmez
+PROGRAM.md
