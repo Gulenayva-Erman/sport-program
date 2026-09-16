@@ -1,5 +1,6 @@
 /* Ortak mantık: hafta/faz hesabı, localStorage yardımcıları, dinlenme sayacı */
 window.SP = (function(){
+  var VERSION = "1.1"; // Her değişiklikte artır — sayfanın üstünde görünür
   var START = new Date(2026, 8, 21); // 21 Eylül 2026 Pazartesi — program başlangıcı
   var DAYS = { 1:'A', 2:'Z', 3:'B', 4:'I', 5:'F' }; // F = Cuma dönüşümlü
   var META = {
@@ -60,6 +61,12 @@ window.SP = (function(){
   }
   function unlockAudio(){ try{ actx = actx || new (window.AudioContext||window.webkitAudioContext)(); if(actx.state==='suspended') actx.resume(); }catch(e){} }
   function mmss(s){ s=Math.max(0,Math.round(s)); return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'); }
-  return { START:START, META:META, state:state, sessionFor:sessionFor, phaseName:phaseName, weekDates:weekDates, ymd:ymd, get:get, set:set,
+  return { VERSION:VERSION, START:START, META:META, state:state, sessionFor:sessionFor, phaseName:phaseName, weekDates:weekDates, ymd:ymd, get:get, set:set,
            markDone:markDone, isDone:isDone, fmtDate:fmtDate, trDay:trDay, restBar:restBar, beep:beep, unlockAudio:unlockAudio, mmss:mmss };
 })();
+/* Sürüm etiketi: alt sayfalarda üst çubuğa, ana sayfada #ver alanına */
+document.addEventListener('DOMContentLoaded', function(){
+  var el = document.createElement('span'); el.className = 'pill ver'; el.textContent = 'v' + SP.VERSION; el.title = 'Site sürümü';
+  var slot = document.getElementById('ver'); var top = document.querySelector('.top');
+  if(slot) slot.appendChild(el); else if(top) top.appendChild(el);
+});

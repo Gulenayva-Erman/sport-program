@@ -211,3 +211,4 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 .done-bar{margin-top:22px}
 footer{margin-top:36px;color:var(--muted);font-size:.85rem;text-align:center}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.pill.ver{font-size:.75rem;padding:2px 7px;color:var(--muted);font-variant-numeric:tabular-nums}
