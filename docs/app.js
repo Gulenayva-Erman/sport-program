@@ -1,6 +1,6 @@
 /* Ortak mantık: hafta/faz hesabı, localStorage yardımcıları, dinlenme sayacı */
 window.SP = (function(){
-  var VERSION = "1.2"; // Her değişiklikte artır — sayfanın üstünde görünür
+  var VERSION = "1.3"; // Her değişiklikte artır — sayfanın üstünde görünür
   var START = new Date(2026, 8, 14); // Hafta 1 = 14 Eylül 2026 haftası (program 17 Eylül Perşembe başladı)
   var DAYS = { 1:'A', 2:'Z', 3:'B', 4:'I', 5:'F' }; // F = Cuma dönüşümlü
   var META = {
@@ -64,9 +64,19 @@ window.SP = (function(){
   return { VERSION:VERSION, START:START, META:META, state:state, sessionFor:sessionFor, phaseName:phaseName, weekDates:weekDates, ymd:ymd, get:get, set:set,
            markDone:markDone, isDone:isDone, fmtDate:fmtDate, trDay:trDay, restBar:restBar, beep:beep, unlockAudio:unlockAudio, mmss:mmss };
 })();
-/* Sürüm etiketi: alt sayfalarda üst çubuğa, ana sayfada #ver alanına */
+/* Sürüm rozeti: dokununca önbelleği atlayarak yeniler; uygulama öne gelince yeni sürüm var mı diye bakar */
 document.addEventListener('DOMContentLoaded', function(){
-  var el = document.createElement('span'); el.className = 'pill ver'; el.textContent = 'v' + SP.VERSION; el.title = 'Site sürümü';
+  var el = document.createElement('button'); el.type='button'; el.className = 'pill ver'; el.textContent = 'v' + SP.VERSION; el.title = 'Yenilemek için dokun';
   var slot = document.getElementById('ver'); var top = document.querySelector('.top');
-  if(slot) slot.appendChild(el); else if(top) top.appendChild(el);
+  if(slot) slot.appendChild(el); else if(top) top.appendChild(el); else return;
+  function hardReload(){ var u = location.pathname + '?r=' + Date.now(); location.replace(u); }
+  el.addEventListener('click', hardReload);
+  var checking=false;
+  function check(){ if(checking || document.hidden) return; checking=true;
+    fetch('version.txt?t='+Date.now(), {cache:'no-store'}).then(function(r){ return r.ok ? r.text() : ''; }).then(function(v){ v=(v||'').trim();
+      if(v && v!==SP.VERSION){ el.textContent='v'+v+' hazır ↻'; el.classList.add('new'); el.title='Yeni sürüm — yenilemek için dokun'; } }).catch(function(){}).then(function(){ checking=false; }); }
+  check();
+  document.addEventListener('visibilitychange', check);
+  window.addEventListener('pageshow', check);
+  window.addEventListener('focus', check);
 });

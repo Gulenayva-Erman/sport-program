@@ -211,4 +211,5 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 .done-bar{margin-top:22px}
 footer{margin-top:36px;color:var(--muted);font-size:.85rem;text-align:center}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
-.pill.ver{font-size:.75rem;padding:2px 7px;color:var(--muted);font-variant-numeric:tabular-nums}
+.pill.ver{font-size:.75rem;padding:2px 8px;color:var(--muted);font-variant-numeric:tabular-nums;background:transparent;cursor:pointer;font-family:"Barlow Condensed",sans-serif;min-height:26px}
+.pill.ver.new{background:var(--accent);color:#1A1500;border-color:transparent;font-weight:700}
