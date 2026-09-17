@@ -1,7 +1,7 @@
 /* Ortak mantık: hafta/faz hesabı, localStorage yardımcıları, dinlenme sayacı */
 window.SP = (function(){
-  var VERSION = "1.1"; // Her değişiklikte artır — sayfanın üstünde görünür
-  var START = new Date(2026, 8, 21); // 21 Eylül 2026 Pazartesi — program başlangıcı
+  var VERSION = "1.2"; // Her değişiklikte artır — sayfanın üstünde görünür
+  var START = new Date(2026, 8, 14); // Hafta 1 = 14 Eylül 2026 haftası (program 17 Eylül Perşembe başladı)
   var DAYS = { 1:'A', 2:'Z', 3:'B', 4:'I', 5:'F' }; // F = Cuma dönüşümlü
   var META = {
     A: { title:'Gün A — Ağırlık', sub:'Squat · Göğüs · Arka bacak · Sırt · Karın', href:'gun-a.html', key:'A' },

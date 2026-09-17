@@ -81,7 +81,7 @@
   var st=SP.state(); var p = st.phase===0?1:Math.min(st.phase,3);
   var tabs=document.getElementById('tabs'); tabs.querySelectorAll('button').forEach(function(b){ b.addEventListener('click',function(){ stop(); tabs.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-selected',x===b)}); build(+b.dataset.p); }); if(+b.dataset.p===p) b.setAttribute('aria-selected','true'); });
   build(p);
-  document.getElementById('ctx').textContent=(st.phase===0?'Program 21 Eylül\'de başlıyor':'Hafta '+st.week)+' · Perşembe';
+  document.getElementById('ctx').textContent=(st.phase===0?'Program henüz başlamadı':'Hafta '+st.week)+' · Perşembe';
   var done=document.getElementById('done'); if(SP.isDone(st.date)==='I'){done.textContent='Bugün tamamlandı ✓';done.classList.add('ghost');}
   done.addEventListener('click',function(){SP.markDone('I');done.textContent='Bugün tamamlandı ✓';done.classList.add('ghost');});
 })();

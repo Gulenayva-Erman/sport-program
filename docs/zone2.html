@@ -74,7 +74,7 @@
   go.addEventListener('click', function(){ SP.unlockAudio(); if(run){ stop(); } else { run=setInterval(tick,1000); go.textContent='Duraklat'; } });
   document.getElementById('reset').addEventListener('click', function(){ stop(); left=total; last=0; paint(); });
   paint();
-  var st=SP.state(); var ctx=document.getElementById('ctx'); ctx.textContent = (st.phase===0?'Program 21 Eylül\'de başlıyor':'Hafta '+st.week)+' · Salı';
+  var st=SP.state(); var ctx=document.getElementById('ctx'); ctx.textContent = (st.phase===0?'Program henüz başlamadı':'Hafta '+st.week)+' · Salı';
   var done=document.getElementById('done'); if(SP.isDone(st.date)==='Z'){done.textContent='Bugün tamamlandı ✓';done.classList.add('ghost');}
   done.addEventListener('click',function(){SP.markDone('Z');done.textContent='Bugün tamamlandı ✓';done.classList.add('ghost');});
 })();

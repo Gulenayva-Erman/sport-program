@@ -208,7 +208,7 @@ window.renderDay = function(dayKey){
   tabs.querySelectorAll('button').forEach(function(b){ b.addEventListener('click', function(){ draw(+b.dataset.p); }); });
   draw(cur);
   var hdr = document.getElementById('ctx');
-  if(hdr){ hdr.textContent = st.phase===0 ? 'Program 21 Eylül\'de başlıyor — şimdilik Faz 1 planı' : 'Hafta '+st.week+' · '+SP.phaseName(Math.min(st.phase,3)); }
+  if(hdr){ hdr.textContent = st.phase===0 ? 'Program henüz başlamadı — Faz 1 planı' : 'Hafta '+st.week+' · '+SP.phaseName(Math.min(st.phase,3)); }
   var done = document.getElementById('done');
   if(done){ if(SP.isDone(st.date)===dayKey){ done.textContent='Bugün tamamlandı ✓'; done.classList.add('ghost'); }
     done.addEventListener('click', function(){ SP.markDone(dayKey); done.textContent='Bugün tamamlandı ✓'; done.classList.add('ghost'); SP.beep(3); }); }
