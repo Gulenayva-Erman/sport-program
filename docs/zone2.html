@@ -10,8 +10,8 @@
 <body>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="styles.css?v=1.3">
-<script src="app.js?v=1.3"></script>
+<link rel="stylesheet" href="styles.css?v=1.4">
+<script src="app.js?v=1.4"></script>
 <div class="wrap">
   <div class="top"><a class="back" href="index.html">‹ Ana sayfa</a><div class="title">Zone 2 Kardiyo</div><span class="pill accent">30 dk</span></div>
   <section class="hero">
@@ -25,7 +25,7 @@
     <div class="clock num" id="clock">30:00</div>
     <div class="sub" id="sub">3 dk ısınma · 24 dk sabit tempo · 3 dk soğuma</div>
     <div class="segs" id="segs"></div>
-    <div class="ctl"><button class="btn primary" id="go">Başlat</button><button class="btn" id="reset">Sıfırla</button></div>
+    <div class="ctl"><button class="btn primary" id="go">Başlat</button><button class="btn" id="reset">Sıfırla</button><button class="btn" id="test">Sesi dene</button></div>
   </div>
 
   <h2>Hangi alet?</h2>
@@ -63,15 +63,19 @@
   var stages=[{n:'Isınma',s:180,c:'easy'},{n:'Sabit tempo',s:1440,c:'fast'},{n:'Soğuma',s:180,c:'easy'}];
   var total=stages.reduce(function(a,b){return a+b.s},0), left=total, run=null, last=0;
   var clock=document.getElementById('clock'), stage=document.getElementById('stage'), sub=document.getElementById('sub'), segs=document.getElementById('segs');
+  var mini = SP.miniBar(document.getElementById('tm'), toggle);
   segs.innerHTML=stages.map(function(s){return '<i class="'+s.c+'" style="flex:'+s.s+'"></i>'}).join('');
   function cur(){ var t=total-left, acc=0; for(var i=0;i<stages.length;i++){ acc+=stages[i].s; if(t<acc) return {i:i,left:acc-t}; } return {i:stages.length-1,left:0}; }
   function paint(){ var c=cur(); clock.textContent=SP.mmss(left); stage.textContent=stages[c.i].n; stage.className='stage '+stages[c.i].c; sub.textContent='Bu bölümde kalan: '+SP.mmss(c.left);
     segs.querySelectorAll('i').forEach(function(el,i){ el.classList.toggle('cur',i===c.i); el.classList.toggle('done',i<c.i); });
-    if(c.i!==last){ SP.beep(2); last=c.i; } if(left<=0){ stop(); stage.textContent='Bitti'; SP.beep(3);} }
+    mini.set(stages[c.i].n, stages[c.i].c, SP.mmss(c.left), (total-left)/total*100, !!run);
+    if(c.i!==last){ SP.beep(2); last=c.i; } if(left<=0){ stop(); stage.textContent='Bitti'; SP.beep(4);} }
   function tick(){ left=Math.max(0,left-1); paint(); }
-  function stop(){ clearInterval(run); run=null; go.textContent='Başlat'; }
+  function stop(){ clearInterval(run); run=null; go.textContent='Başlat'; paint(); }
+  function toggle(){ SP.unlockAudio(); if(run){ stop(); } else { run=setInterval(tick,1000); go.textContent='Duraklat'; paint(); } }
   var go=document.getElementById('go');
-  go.addEventListener('click', function(){ SP.unlockAudio(); if(run){ stop(); } else { run=setInterval(tick,1000); go.textContent='Duraklat'; } });
+  go.addEventListener('click', toggle);
+  document.getElementById('test').addEventListener('click', function(){ SP.unlockAudio(); SP.beep(3); });
   document.getElementById('reset').addEventListener('click', function(){ stop(); left=total; last=0; paint(); });
   paint();
   var st=SP.state(); var ctx=document.getElementById('ctx'); ctx.textContent = (st.phase===0?'Program henüz başlamadı':'Hafta '+st.week)+' · Salı';
