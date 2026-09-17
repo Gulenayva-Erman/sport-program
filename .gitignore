@@ -5,3 +5,9 @@ erman-vucut.JPG
 
 # Kişisel ölçümler içerir, repoya girmez
 PROGRAM.md
+
+# Tartı ekran görüntüleri (kişisel)
+*.JPG
+*.jpg
+*.png
+!docs/img/*.jpg
