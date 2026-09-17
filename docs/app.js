@@ -1,6 +1,6 @@
 /* Ortak mantık: hafta/faz hesabı, localStorage yardımcıları, dinlenme sayacı */
 window.SP = (function(){
-  var VERSION = "1.4"; // Her değişiklikte artır — sayfanın üstünde görünür
+  var VERSION = "1.5"; // Her değişiklikte artır — sayfanın üstünde görünür
   var START = new Date(2026, 8, 14); // Hafta 1 = 14 Eylül 2026 haftası (program 17 Eylül Perşembe başladı)
   var DAYS = { 1:'A', 2:'Z', 3:'B', 4:'I', 5:'F' }; // F = Cuma dönüşümlü
   var META = {

@@ -10,8 +10,8 @@
 <body>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="styles.css?v=1.4">
-<script src="app.js?v=1.4"></script>
+<link rel="stylesheet" href="styles.css?v=1.5">
+<script src="app.js?v=1.5"></script>
 <div class="wrap">
   <section class="hero">
     <div class="eyebrow" style="display:flex;justify-content:space-between;align-items:center;gap:8px">12 haftalık vücut kompozisyonu programı <span id="ver"></span></div>
@@ -94,6 +94,18 @@
     <div class="tbl" style="margin-top:12px"><table id="m-tbl"><thead><tr><th>Tarih</th><th class="num">Kilo</th><th class="num">Bel</th><th class="num">Fark</th></tr></thead><tbody></tbody></table></div>
   </div>
 
+  <h2>Yedekleme</h2>
+  <div class="card">
+    <p class="small muted">Kayıtlar (ölçümler, kürek sayıları, kg kutuları, tamamlanan günler) sadece bu telefonda durur. Ana ekran simgesini silmek, Safari verilerini temizlemek veya telefon değiştirmek hepsini siler. Haftada bir yedek al: kopyala, Notlar'a yapıştır.</p>
+    <p class="small" id="bk-status">Son yedek: henüz yok</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+      <button class="btn primary" id="bk-copy">Yedeği kopyala</button>
+      <button class="btn" id="bk-restore">Geri yükle</button>
+    </div>
+    <textarea id="bk-text" rows="4" style="width:100%;margin-top:10px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font:inherit;font-size:.85rem;padding:8px" placeholder="Kopyala'ya basınca yedek metni burada belirir (panoya da kopyalanır). Geri yüklemek için Notlar'daki yedeği buraya yapıştırıp Geri yükle'ye bas."></textarea>
+    <p class="small muted" id="bk-msg" style="margin:8px 0 0"></p>
+  </div>
+
   <footer>Başlangıç: 17 Eylül 2026 · Kayıtlar yalnızca bu cihazda tutulur, hiçbir yere gönderilmez.</footer>
 </div>
 <script>
@@ -135,6 +147,20 @@
   document.getElementById('m-add').addEventListener('click', function(){ var w=parseFloat(document.getElementById('m-w').value), b=parseFloat(document.getElementById('m-b').value); if(!w&&!b) return;
     rows.push({d:new Date().toLocaleDateString('tr-TR',{day:'2-digit',month:'2-digit'}), w:w||null, b:b||null}); SP.set('measures',rows); paint(); document.getElementById('m-w').value=''; document.getElementById('m-b').value=''; });
   paint();
+  /* yedekleme */
+  var bkStatus=document.getElementById('bk-status'), bkText=document.getElementById('bk-text'), bkMsg=document.getElementById('bk-msg');
+  function bkPaint(){ var at=SP.get('backup:at',null); if(!at){ bkStatus.textContent='Son yedek: henüz yok'; bkStatus.style.color='var(--warn)'; return; }
+    var days=Math.floor((Date.now()-at)/86400000); bkStatus.textContent='Son yedek: '+new Date(at).toLocaleDateString('tr-TR')+(days>0?' ('+days+' gün önce)':' (bugün)'); bkStatus.style.color = days>14?'var(--warn)':'var(--muted)'; }
+  function bkDump(){ var data={}; try{ for(var i=0;i<localStorage.length;i++){ var k=localStorage.key(i); if(k==='backup:at') continue; data[k]=localStorage.getItem(k); } }catch(e){} return JSON.stringify({app:'sport-program',v:1,at:new Date().toISOString(),data:data}); }
+  document.getElementById('bk-copy').addEventListener('click', function(){ var txt=bkDump(); bkText.value=txt; var n=Object.keys(JSON.parse(txt).data).length; SP.set('backup:at',Date.now()); bkPaint();
+    function done(ok){ bkMsg.textContent = n+' kayıt '+(ok?'panoya kopyalandı. Notlar uygulamasına yapıştır.':'hazır — aşağıdaki metni seçip kopyala.'); }
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(function(){done(true)},function(){ bkText.select(); done(false); }); } else { bkText.select(); done(false); } });
+  document.getElementById('bk-restore').addEventListener('click', function(){ var txt=bkText.value.trim(); if(!txt){ bkMsg.textContent='Önce yedek metnini yukarıdaki kutuya yapıştır.'; return; }
+    var obj; try{ obj=JSON.parse(txt); }catch(e){ bkMsg.textContent='Bu metin bir yedek değil (JSON okunamadı).'; return; }
+    if(!obj||obj.app!=='sport-program'||!obj.data){ bkMsg.textContent='Bu metin bu uygulamanın yedeği değil.'; return; }
+    var n=0; try{ Object.keys(obj.data).forEach(function(k){ localStorage.setItem(k,obj.data[k]); n++; }); }catch(e){}
+    bkMsg.textContent=n+' kayıt geri yüklendi ('+new Date(obj.at).toLocaleDateString('tr-TR')+' tarihli yedek). Sayfa yenileniyor…'; setTimeout(function(){ location.replace(location.pathname+'?r='+Date.now()); },1200); });
+  bkPaint();
 })();
 </script>
 </body>

@@ -37,16 +37,16 @@ window.EX = {
     start:'1. hafta: pin 4–5 (yaklaşık 25–30 kg).'
   },
   plank: {
-    tr:'Plank', en:'Plank', img:'img/mat-kettlebell.jpg', cap:'Mat alanı — mat, foam roller ve küçük ağırlıklar burada',
+    tr:'Plank', en:'Plank', img:null, svg:'plank', cap:'Mat alanında yapılır (mat, foam roller ve küçük ağırlıkların olduğu köşe)',
     muscles:'Karın, bel çevresi (core)',
     what:'Dirsekler ve ayak uçları üzerinde vücudu düz bir tahta gibi tutarsın. Hareket yok, sadece tutuş. Karın kaslarını bel ağrısı olmadan çalıştırmanın en güvenli yolu.',
     setup:['Matı ser, yüzüstü dirsekler omuz hizasının tam altında.','Ayak uçları yerde, bacaklar düz.'],
     how:['Kalçayı kaldır: baş, sırt, kalça, topuk tek çizgi.','Karnı sık (biri karnına vuracakmış gibi), kalçayı sık.','Normal nefes al. Süre bitince dizleri indir.'],
     dont:['Kalçanın aşağı çökmesi (bel çukuru) — en sık hata','Kalçanın tavana kalkması (çadır)','Nefesi tutmak'],
-    start:'30 saniye ile başla. 45 saniyeyi 3 set rahat tutunca dead bug\'a geç.'
+    start:'30 saniye ile başla, 45 saniyeye çık. Faz 2\'de (5. hafta) yerini "Dead Bug" alır: sırtüstü yatıp çapraz kol-bacak uzattığın bir karın hareketi — Faz 2 sekmesinde çizimiyle var.'
   },
   dead_bug: {
-    tr:'Dead Bug (Sırtüstü Çapraz Uzatma)', en:'Dead Bug', img:'img/mat-kettlebell.jpg', cap:'Mat alanında yapılır',
+    tr:'Sırtüstü Çapraz Uzatma', en:'Dead Bug ("ölü böcek" — sırtüstü yatmış böceğe benzediği için)', img:null, svg:'dead_bug', cap:'Mat alanında yapılır',
     muscles:'Derin karın kasları, bel stabilitesi',
     what:'Sırtüstü yat, kollar tavana, dizler havada 90°. Çapraz kol ve bacağı uzatırken belin yerden kalkmamasını sağlarsın. Plank\'in bir üst seviyesi; beli koruyan kasları öğretir.',
     setup:['Sırtüstü yat, iki kolu tavana uzat.','Dizleri kaldır: kalça 90°, diz 90° (masa pozisyonu).','Belini yere yapıştır — bel ile yer arasında boşluk kalmasın.'],
@@ -100,7 +100,7 @@ window.EX = {
     start:'Faz 1: vücut ağırlığı veya en hafif plaka. 15 tekrar rahatsa 5 kg ekle.'
   },
   tibialis: {
-    tr:'Ayak Ucu Kaldırma', en:'Tibialis Raise', img:'img/bosu-step.jpg', cap:'Alet gerekmez; duvar yeterli. Sonra step kenarında da yapılabilir.',
+    tr:'Ayak Ucu Kaldırma', en:'Tibialis Raise', img:'img/bosu-step.jpg', svg:'tibialis', cap:'Alet gerekmez; duvar yeterli. Sonra step kenarında da yapılabilir.',
     muscles:'Kaval kemiği önü (tibialis), ayak bileği',
     what:'Sırtını duvara yaslayıp topuklar yerde, ayak uçlarını olabildiğince yukarı kaldırırsın. Baldırın "karşıtı"; düz tabanda ayak bileğini dengeler, kaval ağrısını önler.',
     setup:['Sırtını duvara yasla, topuklar duvardan 25–30 cm önde, dizler düz.'],
@@ -109,7 +109,7 @@ window.EX = {
     start:'Sadece vücut ağırlığı. 20 tekrar rahatsa duvardan biraz uzaklaş.'
   },
   goblet_squat: {
-    tr:'Dambıl Göğüste Çömelme', en:'Goblet Squat', img:'img/dambil-duvari.jpg', cap:'Dambıl duvarından bir dambıl al; ayna karşısında yap',
+    tr:'Dambıl Göğüste Çömelme', en:'Goblet Squat', img:'img/dambil-duvari.jpg', svg:'goblet_squat', cap:'Dambıl duvarından bir dambıl al; ayna karşısında yap',
     muscles:'Ön bacak, kalça, karın',
     what:'Bir dambılı iki elinle göğsünde tutup (kadeh tutar gibi) çömelirsin. Makineden serbest ağırlığa geçişin ilk adımı; dengeyi ve doğru çömelme formunu öğretir.',
     setup:['Dambılı dik tutup üst kısmından iki elle göğsüne yasla, dirsekler aşağı.','Ayaklar omuz genişliğinde, parmak uçları hafif dışa.'],
@@ -118,7 +118,7 @@ window.EX = {
     start:'8–12 kg dambıl ile başla. 12 tekrar rahatsa 2 kg ekle.'
   },
   db_rdl: {
-    tr:'Dambılla Kalça Menteşesi', en:'Dumbbell Romanian Deadlift (RDL)', img:'img/dambil-duvari.jpg', cap:'İki dambıl; ayna karşısında yandan görebileceğin yerde yap',
+    tr:'Dambılla Kalça Menteşesi', en:'Dumbbell Romanian Deadlift (RDL)', img:'img/dambil-duvari.jpg', svg:'db_rdl', cap:'İki dambıl; ayna karşısında yandan görebileceğin yerde yap',
     muscles:'Arka bacak, kalça, bel',
     what:'İki dambılı bacaklarının önünde tutup, dizleri hafif kırık, kalçanı geriye vererek gövdeni öne eğersin. Roman chair\'de öğrendiğin hareketin ayakta, ağırlıklı hali. Arka zincirin (arka bacak-kalça-bel) ana hareketi.',
     setup:['Her elde bir dambıl, uylukların önünde, avuç içleri sana bakıyor.','Ayaklar kalça genişliğinde, dizler hafif kırık (bu açı hareket boyunca değişmez).','Omuzlar geride, sırt düz.'],
@@ -188,7 +188,8 @@ window.renderDay = function(dayKey){
       html += '<article class="ex" id="'+it.id+'">'+
         '<div class="head"><div class="badge">'+tag+'</div><div><h3>'+e.tr+'</h3><div class="en">'+e.en+'</div></div>'+
         '<div class="rx"><b>'+it.sets+' × '+it.reps+'</b><span>set × tekrar</span></div></div>'+
-        '<figure><img src="'+e.img+'" alt="'+e.en+'" loading="lazy"><figcaption>'+e.cap+'</figcaption></figure>'+
+        (e.img?'<figure><img src="'+e.img+'" alt="'+e.en+'" loading="lazy"><figcaption>'+e.cap+'</figcaption></figure>':'')+
+        (e.svg&&window.DIAGRAMS&&DIAGRAMS[e.svg]?'<div class="diagram">'+DIAGRAMS[e.svg]+(e.img?'':'<div class="dcap">'+e.cap+'</div>')+'</div>':'')+
         '<div class="body">'+
         (it.note?'<div class="note" style="margin-bottom:10px">'+it.note+'</div>':'')+
         '<div class="muscles">Çalışan: '+e.muscles+'</div>'+

@@ -232,3 +232,8 @@ footer{margin-top:36px;color:var(--muted);font-size:.85rem;text-align:center}
 .log input{width:100%;height:44px;border:1.5px solid var(--line);border-radius:10px;background:var(--surface);color:var(--ink);font:inherit;font-size:1.05rem;padding:0 10px;font-variant-numeric:tabular-nums}
 @media (max-width:420px){.log{grid-template-columns:1fr 1fr}.log .btn{grid-column:1/-1}}
 @media (prefers-reduced-motion:reduce){.flash.on{animation:none;opacity:.5}}
+
+/* hareket çizimleri */
+.diagram{margin:12px 14px 0;background:var(--surface-2);border:1px solid var(--line);border-radius:12px;padding:8px 8px 4px;color:var(--ink)}
+.diagram svg{display:block;width:100%;height:auto}
+.diagram .dcap{font-size:.85rem;color:var(--muted);padding:2px 4px 6px}
